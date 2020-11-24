@@ -1,0 +1,80 @@
+#mysql -uedunova -pedunova </Users/natalis/vlast.sql
+
+drop database if exists vlast ;
+create database vlast CHARACTER SET utf8;
+
+use vlast;
+
+create table zupanija(
+    sifra       int not null primary key auto_increment,
+    naziv       varchar(50) not null,
+    zupan       int NOT NULL
+);
+    
+create table zupan(
+    sifra       int not null primary key auto_increment,
+    ime         varchar(50) not null,
+    prezime     varchar(50) not null    
+);
+
+create table opcina(
+    sifra       int not null primary key auto_increment,
+    naziv       varchar(50) not null,
+    zupanija       int NOT NULL   
+);
+   
+create table mjesto(
+    sifra       int not null primary key auto_increment,
+    naziv       varchar(50) not null,
+    opcina       int NOT NULL   
+);
+
+alter table zupanija add foreign key (zupan) references zupan(sifra);
+alter table opcina add foreign key (zupanija) references zupanija(sifra);
+alter table mjesto add foreign key (opcina) references opcina (sifra);
+
+insert into zupan (prezime,ime) values ('Horvat','Ivan');
+insert into zupan (prezime,ime) values ('Horvat','Marko');
+insert into zupan (prezime,ime) values ('Horvat','Jura');
+
+insert into zupanija (naziv,zupan) values  ('Osječko-baranjska', 1);
+insert into zupanija (naziv,zupan) values  ('Virovitičko-podravska', 2);
+insert into zupanija (naziv,zupan) values  ('Vukovarsko-srijemska', 3);
+
+insert into opcina (naziv,zupanija) values  ('Osijek', 1);
+insert into opcina (naziv,zupanija) values  ('Valpovo', 1);
+insert into opcina (naziv,zupanija) values  ('Belišće', 1);
+insert into opcina (naziv,zupanija) values  ('Vukovar', 3);
+insert into opcina (naziv,zupanija) values  ('Vinkovci',3);
+insert into opcina (naziv,zupanija) values  ('Pitomača', 2);
+
+insert into mjesto (naziv,opcina) values  ('Tenja',1 );
+insert into mjesto (naziv,opcina) values  ('Josipovac',1 );
+insert into mjesto (naziv,opcina) values  ('Višnjevac',1 );
+insert into mjesto (naziv,opcina) values  ('Gat',2 );
+insert into mjesto (naziv,opcina) values  ('Veliškovci',2 );
+insert into mjesto (naziv,opcina) values  ('Bistrinci',3 );
+insert into mjesto (naziv,opcina) values  ('Sotin',4 );
+insert into mjesto (naziv,opcina) values  ('Borovo',4 );
+insert into mjesto (naziv,opcina) values  ('Bršadin',4 );
+insert into mjesto (naziv,opcina) values  ('Nuštar',5 );
+insert into mjesto (naziv,opcina) values  ('Ivankovo',5 );
+insert into mjesto (naziv,opcina) values  ('Otrovanec',6 );
+insert into mjesto (naziv,opcina) values  ('Sedlarica',6 );
+insert into mjesto (naziv,opcina) values  ('Grabrovnica',6 );
+
+SELECT * FROM mjesto;
+SELECT * from opcina;
+SELECT * FROM zupanija;
+
+UPDATE mjesto SET naziv='Nemetin' where sifra=1;
+UPDATE mjesto SET naziv='Petrijevci' where sifra=2;
+UPDATE mjesto SET naziv='Bilje' where sifra=3;
+UPDATE mjesto SET naziv='Križnica' where sifra=12;
+UPDATE mjesto SET naziv='Kladare' where sifra=13;
+
+DELETE from mjesto where opcina=1;
+DELETE  FROM opcina where sifra=1;
+
+DELETE from mjesto where opcina=2;
+DELETE  FROM opcina where sifra=2;
