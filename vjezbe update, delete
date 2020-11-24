@@ -1,0 +1,31 @@
+#mysql -uedunova -pedunova </Users/natalis/bazavjezba1.sql
+
+drop database if exists bazavjezba1 ;
+create database bazavjezba1 CHARACTER SET utf8;
+
+use bazavjezba1;
+
+create table automobil(
+    sifra       int not null primary key auto_increment,
+    naziv       varchar(50) not null,
+    cijena      decimal(18,2),
+    boja        varchar (50)not null
+
+);
+
+select * from automobil;
+
+
+insert into automobil (naziv,cijena,boja) values ('Renault', '1000', 'crvena');
+insert into automobil (naziv,cijena,boja) values ('Renault', '1019', 'plava');
+insert into automobil (naziv,cijena,boja) values ('Renault', '1020', 'zuta');
+insert into automobil (naziv,cijena,boja) values ('Renault', '1018', 'bijela');
+insert into automobil (naziv,cijena,boja) values ('Renault', '1026', 'crna');
+
+
+
+UPDATE automobil SET cijena = cijena+10;
+
+UPDATE automobil SET boja='ruzicasta' where sifra=4;
+
+DELETE from automobil where sifra=6;
