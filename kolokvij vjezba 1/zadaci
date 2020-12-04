@@ -1,0 +1,31 @@
+# 1. U tablice muskarac, zena i sestra_svekar unesite po 3 retka.
+
+insert into sestra (introvertno,haljina, maraka ,hlace, narukvica) values (null, 'plava', 384.39, 'traperice', 3);
+insert into sestra (introvertno,haljina, maraka ,hlace, narukvica) values (1, 'zelena', null, 'crne', 5);
+insert into sestra (introvertno,haljina, maraka ,hlace, narukvica) values (null, 'siva', 346.9765, 'svecane', 7);
+
+insert into zena (treciputa ,hlace, kratkamajica,jmbag,bojaociju, haljina, sestra) values ('2020-12-03', null, 'roza', 98675475734,'smeda', null, 1);
+insert into zena (treciputa ,hlace, kratkamajica,jmbag,bojaociju, haljina, sestra) values (null, 'smede', 'plava', 75363846974,'zelena', 'zuta', 2);
+insert into zena (treciputa ,hlace, kratkamajica,jmbag,bojaociju, haljina, sestra) values ('2019-09-12', 'crne', 'crvena', 87965493210,'plava', null, 3);
+
+insert into muskarac (bojaociju, hlace, modelnaocala, maraka, zena) values('plava', 'traperice', null, 234.87, 1);
+insert into muskarac (bojaociju, hlace, modelnaocala, maraka, zena) values ('crna',null, null, 658709.98, 3);
+insert into muskarac (bojaociju, hlace, modelnaocala, maraka, zena) values ('smeda','svilene', 'noname', 34.49587, 2);
+
+insert into svekar (bojaociju ,prstena ,dukserica , lipa, eura , majica) values ('zelena', null, 'crvena', 34.569, null, 'zlatna');
+insert into svekar (bojaociju ,prstena ,dukserica , lipa, eura , majica) values ('plava', null, null, null, null, null);
+insert into svekar (bojaociju ,prstena ,dukserica , lipa, eura , majica) values ('smeda', null, 'nova', 1.4, 100.87, 'srebrna');
+
+insert into sestra_svekar (sestra,svekar) values (2,3);
+insert into sestra_svekar (sestra,svekar) values (1,3);
+insert into sestra_svekar (sestra,svekar) values (1,2);
+
+
+# 2. U tablici cura postavite svim zapisima kolonu gustoca na vrijednost 15,77.
+
+insert into punac (ogrlica, gustoca, hlace) values (45, 567.87, 'traperice');
+
+insert into cura (novcica, gustoca, lipa, ogrlica, bojakose, suknja, punac) values (2.89, 45.98, null, 5,'crna', null, 1);
+insert into cura (novcica, gustoca, lipa, ogrlica, bojakose, suknja, punac) values (34.9, 23.67, 8.9, 43,'smeda', 'kratka', 1);
+
+update cura set gustoca=15.77;
