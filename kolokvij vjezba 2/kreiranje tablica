@@ -50,7 +50,7 @@ cura int
 create table brat (
 sifra int not null primary key auto_increment,
 suknja varchar (47) null,
-ogrila int,
+ogrlica int,
 asocijalno bit,
 neprijatelj int not null
 );
