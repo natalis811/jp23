@@ -1,0 +1,76 @@
+drop database if exists book ;
+create database book CHARACTER SET utf8;
+use book;
+
+create table book (
+id int not null primary key auto_increment,
+title varchar (45),
+published int,
+ISBN varchar (45),
+category varchar (45),
+author int not null,
+publisher int not null
+);
+ 
+create table author (
+id int not null primary key auto_increment,
+first_name varchar (45),
+last_name varchar (45)
+);
+
+create table publisher (
+id int not null primary key auto_increment,
+name varchar (45),
+address varchar (45),
+city varchar (45),
+country varchar (45)
+);
+
+create table user (
+id int not null primary key auto_increment,
+first_name varchar (45),
+last_name varchar (45)
+);
+
+create table review (
+id int not null primary key auto_increment,
+text varchar (45),
+rating int,
+date datetime,
+book int not null,
+user int not null
+);
+
+alter table book add foreign key (author) references author (id);
+alter table book add foreign key (publisher) references publisher (id);
+alter table review add foreign key (book) references book (id);
+alter table review add foreign key (user) references user (id);
+
+insert into publisher (name, address, city, country) values ('Mozaik knjiga', 'Karlovačka cesta 24 a', 'Zagreb', 'Hrvatska');
+insert into publisher (name, address, city, country) values ('Evenio', 'Augusta Cesarca 5', 'Varaždin', 'Hrvatska');
+insert into publisher (name, address, city, country) values ('Mozaik knjiga', 'Karlovačka cesta 24 a', 'Zagreb', 'Hrvatska');
+insert into publisher (name, address, city, country) values ('Znanje', 'Matka Mandića 2', 'Zagreb', 'Hrvatska');
+insert into publisher (name, address, city, country) values ('Naša djeca', 'Velika cesta 90', 'Zagreb', 'Hrvatska');
+
+insert into author (first_name, last_name) values ('Dav', 'Pilkey');
+insert into author (first_name, last_name) values ('Tamara', 'Vučković');
+insert into author (first_name, last_name) values ('Sanja', 'Polak');
+insert into author (first_name, last_name) values ('Orianne', 'Lallemand');
+insert into author (first_name, last_name) values ('Branko', 'Ćopić');
+
+insert into book (title, published, ISBN, category, author, publisher) values ('Čovpas', 2019, '978-953-14-2637-4', 'comic book', 1, 1 );
+insert into book (title, published, ISBN, category, author, publisher) values ('Mirko Bjesomirko', 2019, '978-953-8008-44-3', 'children''s book', 2, 2 );
+insert into book (title, published, ISBN, category, author, publisher) values ('Mali Jan ima plan', 2010, '978-953-14-0433-4', 'children''s book', 3, 1 );
+insert into book (title, published, ISBN, category, author, publisher) values ('Vuk koji nije volio čitati', 2020,'978-360-064-2', 'children''s book', 4, 3 );
+insert into book (title, published, ISBN, category, author, publisher) values ('Ježeva kućica', 2015,'978-953-14-0433-4', 'children''s book', 5, 4 );
+
+insert into user (first_name, last_name) values ('Ana', 'Anić');
+insert into user (first_name, last_name) values ('Ivan', 'Horvat');
+insert into user (first_name, last_name) values ('Petra', 'Perić');
+
+insert into review (text, rating, date, book, user) values ('Knjiga je odlična', 5, '2020-12-08', 2, 2);
+insert into review (text, rating, date, book, user) values ('Odlična za djecu', 5, '2020-10-7', 5, 2);
+insert into review (text, rating, date, book, user) values ('Dobra knjiga', 4, '2020-09-29', 3, 1);
+insert into review (text, rating, date, book, user) values ('Nije za malu djecu', 3, '2020-04-20', 1, 3);
+
+
