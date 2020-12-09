@@ -1,0 +1,74 @@
+# 1. U tablice neprijatelj, cura i decko_zarucnica unesite po 3 retka. 
+
+insert into decko (indiferentno, vesta, asocijalno) values (null, 'plava', 1);
+insert into decko (indiferentno, vesta, asocijalno) values (1, 'plabava', 1);
+insert into decko (indiferentno, vesta, asocijalno) values (null, 'crbavena', null);
+
+insert into zarucnica (narukvica, bojakose, novcica, lipa, indiferentno) values (null, 'crvena', null, 3.78, 1);
+insert into zarucnica (narukvica, bojakose, novcica, lipa, indiferentno) values (1, 'plava', 34.78, 3.79, 1);
+insert into zarucnica (narukvica, bojakose, novcica, lipa, indiferentno) values (null, 'smeda', null, 3.78, null);
+
+insert into decko_zarucnica (decko, zarucnica) values (1,1);
+insert into decko_zarucnica (decko, zarucnica) values (2,1);
+insert into decko_zarucnica (decko, zarucnica) values (3,2);
+
+insert into cura (haljina, drugiputa,suknja, narukvica, introvertno, majica, decko) values ('crna','2020-12-6', null,null, null, 'plava', 1);
+insert into cura (haljina, drugiputa,suknja, narukvica, introvertno, majica, decko) values ('crna','2020-12-5', 'kratka',5, 1, 'crna', 3);
+insert into cura (haljina, drugiputa,suknja, narukvica, introvertno, majica, decko) values ('plava','2020-12-7', 'duga',9, null, 'crvena', 2);
+
+insert into neprijatelj (majica,haljina,lipa, modelnaocala,kuna, jmbag, cura) values (null, 'crvena', null,'nove', 234.56,null, 1);
+insert into neprijatelj (majica,haljina,lipa, modelnaocala,kuna, jmbag, cura) values ('plava', 'crvena', 34.9,'plave', 23.56,39475849393,3);
+insert into neprijatelj (majica,haljina,lipa, modelnaocala,kuna, jmbag, cura) values (null, 'crna', null,'nove', 2.56,null,2);
+
+# 2. U tablici prijatelj postavite svim zapisima kolonu treciputa na vrijednost 30. travnja 2020.
+
+select *from prijatelj;
+
+insert into svekar (stilfrizura,ogrlica, asocijalno) values (null,6, 1);
+
+insert into prijatelj (modelnaocala,treciputa,ekstrovertno, prviputa, svekar) values (null,'2020-03-07', 1,null, 1);
+insert into prijatelj (modelnaocala,treciputa,ekstrovertno, prviputa, svekar) values (null,'2020-08-12', 1,null, 1);
+
+update prijatelj set treciputa='2020-04-30';
+
+# 3. U tablici brat obrišite sve zapise čija je vrijednost kolone ogrlica različito od 14. 
+
+insert into brat (suknja,ogrlica, asocijalno, neprijatelj) values (null,6, 1, 1);
+insert into brat (suknja,ogrlica, asocijalno, neprijatelj) values (null,14, 1, 1);
+insert into brat (suknja,ogrlica, asocijalno, neprijatelj) values (null,9, 1, 1);
+
+delete from brat  where ogrlica!=14;
+
+select *from brat;
+
+#4. Izlistajte suknja iz tablice cura uz uvjet da vrijednost kolone drugiputa nepoznate.
+
+select *from cura;
+
+select suknja from cura where drugiputa=null;
+
+# 5. Prikažite novcica iz tablice zarucnica, neprijatelj iz tablice brat te haljina iz
+ #tablice neprijatelj uz uvjet da su vrijednosti kolone drugiputa iz tablice cura poznate te
+ #da su vrijednosti kolone vesta iz tablice decko sadrže niz znakova ba. Podatke posložite po 
+ #haljina iz tablice neprijatelj silazno.
+ 
+ select b.novcica, f.neprijatelj, e.haljina
+ from decko_zarucnica a 
+ inner join zarucnica b on a.zarucnica=b.sifra 
+ inner join decko c on a.decko=c.sifra
+ inner join cura d on d.decko=c.sifra 
+ inner join neprijatelj e on e.cura=d.sifra 
+ inner join brat f on f.neprijatelj=e.sifra
+ where d.drugiputa is not null and c.vesta like '%ba%'
+ order by e.haljina desc;
+
+
+# 6. Prikažite kolone vesta i asocijalno iz tablice decko čiji se primarni ključ ne nalaze u tablici decko_zarucnica.
+ 
+ select b.vesta, b.asocijalno
+ from cura a left join decko b on a.decko=b.sifra;
+
+
+ 
+
+
