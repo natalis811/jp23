@@ -1,0 +1,67 @@
+#1. U tablice snasa, ostavljena i prijatelj_brat unesite po 3 retka.
+
+insert into prijatelj (kuna, haljina, lipa, dukserica, indiferentno) values (null, null,null,null, 1);
+insert into prijatelj (kuna, haljina, lipa, dukserica, indiferentno) values ('32.45', 'plabava',null,null, null);
+insert into prijatelj (kuna, haljina, lipa, dukserica, indiferentno) values (null,'crbavena',null,null, 1);
+ 
+insert into brat (jmbag, ogrlica, ekstrovertno) values (null,'5',null);
+insert into brat (jmbag, ogrlica, ekstrovertno) values (null,'5', 1);
+insert into brat (jmbag, ogrlica, ekstrovertno) values ('90867536432','5',null);
+
+insert into prijatelj_brat (prijatelj, brat) values (1,1);
+insert into prijatelj_brat (prijatelj, brat) values (2,3);
+insert into prijatelj_brat (prijatelj, brat) values (3,1);
+
+insert into ostavljena (kuna, lipa, majica, modelnaocala, prijatelj) values (null,'91',null, 'crne', 1);
+insert into ostavljena (kuna, lipa, majica, modelnaocala, prijatelj) values (null, '20',null, 'plave', 3);
+insert into ostavljena (kuna, lipa, majica, modelnaocala, prijatelj) values ('34','10',null, 'roze', 2);
+update ostavljena set majica='plava';
+
+insert into snasa (introvertno, kuna, eura, treciputa,ostavljena) values (null,'23.45', '35.46', null, 2);
+insert into snasa (introvertno, kuna, eura, treciputa,ostavljena) values (1,'23.5', '3.46', '2020-06-21', 1);
+insert into snasa (introvertno, kuna, eura, treciputa,ostavljena) values (null,'2.4', '35.6', null, 3);
+
+#2. U tablici svekar postavite svim zapisima kolonu suknja na vrijednost Osijek.
+
+insert into cura (dukserica, maraka, drugiputa, majica, novcica, ogrlica) values (null,null,null, null, null,'24');
+
+insert into svekar (novcica, suknja, bojakose, prstena, narukvica, cura) values ('34.3', 'crvena', null, null, '26', 1);
+insert into svekar (novcica, suknja, bojakose, prstena, narukvica, cura) values ('3.3', 'plava', 'crvena', null, '27', 1);
+
+update svekar set suknja='Osijek';
+
+select *from svekar;
+
+#3. U tablici punica obrišite sve zapise čija je vrijednost kolone kratkamajica jednako AB. 
+
+insert into punica (asocijalno, kratkamajica, kuna, vesta, snasa) values (1, 'AB', '12.6', 'crna', 1);
+insert into punica (asocijalno, kratkamajica, kuna, vesta, snasa) values (null, null, '1.6', 'crvena', 3);
+insert into punica (asocijalno, kratkamajica, kuna, vesta, snasa) values (1, 'AB', '6', 'crna', 1);
+
+delete from punica where kratkamajica like '%AB%';
+
+select *from punica;
+
+#4. Izlistajte majica iz tablice ostavljena uz uvjet da vrijednost kolone lipa nije 9,10,20,30 ili 35.
+
+select majica from ostavljena where not lipa in (9,10,20,30,35);
+
+#5. Prikažite ekstroventno iz tablice brat, vesta iz tablice punica te kuna iz tablice snasa 
+#uz uvjet da su vrijednosti kolone lipa iz tablice ostavljena različito od 91 te da su 
+#vrijednosti kolone haljina iz tablice prijatelj sadrže niz znakova ba. 
+#Podatke posložite po kuna iz tablice snasa silazno. 
+
+select b.ekstrovertno, f.vesta, e.kuna
+from prijatelj_brat a inner join brat b on a.brat=b.sifra 
+inner join prijatelj c on a.prijatelj=c.sifra 
+inner join ostavljena d on d.prijatelj=c.sifra 
+inner join snasa e on e.ostavljena=d.sifra
+inner join punica f on f.snasa=e.sifra
+where d.lipa!=91 and c.haljina like '%ba%'
+order by e.kuna desc;
+
+#6. Prikažite kolone haljina i lipa iz tablice prijatelj čiji se primarni ključ ne nalaze u tablici prijatelj_brat.
+
+select b.haljina, b.lipa
+from ostavljena a left join prijatelj b on a.prijatelj=b.sifra;
+
